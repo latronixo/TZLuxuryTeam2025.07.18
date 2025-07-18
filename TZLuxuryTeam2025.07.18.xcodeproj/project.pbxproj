@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CEA65DC22E2AC7D500483145 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA65DC12E2AC7D500483145 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CEA65DA82E2AC1AF00483145 /* TZLuxuryTeam2025.07.18.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TZLuxuryTeam2025.07.18.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA65DC22E2AC7D500483145 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = TZLuxuryTeam2025.07.18;
 			packageProductDependencies = (
+				CEA65DC12E2AC7D500483145 /* SnapKit */,
 			);
 			productName = TZLuxuryTeam2025.07.18;
 			productReference = CEA65DA82E2AC1AF00483145 /* TZLuxuryTeam2025.07.18.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = CEA65D9F2E2AC1AF00483145;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CEA65DC02E2AC7D500483145 /* XCLocalSwiftPackageReference "../../../../Downloads/SnapKit-develop" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CEA65DA92E2AC1AF00483145 /* Products */;
 			projectDirPath = "";
@@ -337,6 +346,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		CEA65DC02E2AC7D500483145 /* XCLocalSwiftPackageReference "../../../../Downloads/SnapKit-develop" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../../Downloads/SnapKit-develop";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEA65DC12E2AC7D500483145 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEA65DA02E2AC1AF00483145 /* Project object */;
 }

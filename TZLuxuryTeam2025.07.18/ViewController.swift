@@ -5,6 +5,7 @@
 //  Created by Валентин on 18.07.2025.
 //
 
+import SnapKit
 import UIKit
 
 class ViewController: UIViewController {
