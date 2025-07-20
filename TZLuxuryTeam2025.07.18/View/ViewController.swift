@@ -16,7 +16,21 @@ class ViewController: UIViewController {
     private let favoritesKey = "favoritesStock"
     
     private var currentList: [Stock] {
-        segmentControl.selectedSegmentIndex == 0 ? stocks : favorites
+        let baseList = segmentControl.selectedSegmentIndex == 0 ? stocks : favorites
+        let searchText = searchBar.text
+        
+        if let text = searchText {
+            if text.isEmpty {
+                return baseList
+            } else {
+                return baseList.filter { stock in
+                    stock.name.localizedCaseInsensitiveContains(text) ||
+                    stock.symbol.localizedCaseInsensitiveContains(text)
+                }
+            }
+        } else {
+            return baseList
+        }
     }
     
     private let contentView = UIView()
@@ -36,6 +50,8 @@ class ViewController: UIViewController {
         textField.layer.masksToBounds = true
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
+        
+        textField.autocapitalizationType = .none
         
         let searchIcon = UIImageView(image: UIImage(named: "searchIcon"))
         searchIcon.tintColor = .black
@@ -115,7 +131,8 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseID)
-        tableView.tableFooterView = UIView()
+        
+        searchBar.delegate = self
     }
     
     @objc private func segmentChanged() {
@@ -176,6 +193,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         )
         return cell
     }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        tableView.reloadData()
+    }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+    }
 }
