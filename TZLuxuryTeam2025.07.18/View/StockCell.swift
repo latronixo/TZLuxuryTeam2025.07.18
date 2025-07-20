@@ -19,20 +19,19 @@ class StockCell: UITableViewCell {
     }()
     private lazy var symbolLabel: UILabel = {
         let element = UILabel()
-        element.font = UIFont(name: "calibri_bold", size: 16)
+        element.font = UIFont(name: "calibri_bold", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold)
         element.textColor = .black
         return element
     }()
     private lazy var nameLabel: UILabel = {
         let element = UILabel()
-        element.font = UIFont(name: "calibri_bold", size: 10)
+        element.font = UIFont(name: "calibri_bold", size: 12) ?? UIFont.systemFont(ofSize: 12)
         element.textColor = .black
         return element
     }()
     private lazy var favoriteButton: UIButton = {
         let element = UIButton()
         element.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        element.setImage(UIImage(systemName: "star.fill"), for: .selected)
         element.tintColor = .lightGray
         element.addTarget(self, action: #selector(favTapped), for: .touchUpInside)
         return element

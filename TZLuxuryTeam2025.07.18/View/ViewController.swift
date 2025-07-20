@@ -15,8 +15,10 @@ class ViewController: UIViewController {
     
     private let favoritesKey = "favoritesStock"
     
+    private var showingFavorites = false
+    
     private var currentList: [Stock] {
-        let baseList = segmentControl.selectedSegmentIndex == 0 ? stocks : favorites
+        let baseList = showingFavorites ? favorites : stocks
         let searchText = searchBar.text
         
         if let text = searchText {
@@ -67,10 +69,22 @@ class ViewController: UIViewController {
         return element
     }()
     
-    private lazy var segmentControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["Stocks", "Favorite"])
-        sc.selectedSegmentIndex = 0
-        return sc
+    private let stocksButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("Stocks", for: .normal)
+        element.titleLabel?.font = UIFont(name: "calibri_bold", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .bold)
+        element.setTitleColor(.black, for: .normal)
+        //element.setTitleColor(.lightGray, for: .selected)
+        return element
+    }()
+    
+    private let favoritesButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("Favorite", for: .normal)
+        element.titleLabel?.font = UIFont(name: "calibri_bold", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold)
+        element.setTitleColor(.lightGray, for: .normal)
+        //element.setTitleColor(.lightGray, for: .selected)
+        return element
     }()
     
     private let tableView = UITableView()
@@ -85,17 +99,18 @@ class ViewController: UIViewController {
         setupConstraints()
         setupTable()
         fetchStocks()
-        print("currentList.count = \(currentList.count)")
     }
     
     private func setup() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(searchBar)
-        contentView.addSubview(segmentControl)
+        contentView.addSubview(stocksButton)
+        contentView.addSubview(favoritesButton)
         contentView.addSubview(tableView)
 
-        segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
+        stocksButton.addTarget(self, action: #selector(showStocks), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(showFavorites), for: .touchUpInside)
     }
     
     private func setupConstraints() {
@@ -115,13 +130,18 @@ class ViewController: UIViewController {
             $0.height.equalTo(54)
         }
         
-        segmentControl.snp.makeConstraints { 
-            $0.top.equalTo(searchBar.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(15)
+        stocksButton.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(6)
+            $0.leading.equalToSuperview().inset(15)
         }
 
-        tableView.snp.makeConstraints { 
-            $0.top.equalTo(segmentControl.snp.bottom).offset(8)
+        favoritesButton.snp.makeConstraints {
+            $0.bottom.equalTo(stocksButton.snp.bottom)
+            $0.leading.equalTo(stocksButton.snp.trailing).offset(24)
+        }
+
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(50)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.greaterThanOrEqualTo(800)
         }
@@ -132,11 +152,38 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseID)
         
+        tableView.separatorStyle = .none
+        
         searchBar.delegate = self
     }
     
-    @objc private func segmentChanged() {
+    @objc private func showStocks() {
+        showingFavorites = false
+        updateButtons()
         tableView.reloadData()
+    }
+    
+    @objc private func showFavorites() {
+        showingFavorites = true
+        updateButtons()
+        tableView.reloadData()
+    }
+    
+    private func updateButtons () {
+        if showingFavorites {
+            stocksButton.setTitleColor(.lightGray, for: .normal)
+            stocksButton.titleLabel?.font = UIFont(name: "calibri_bold", size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+            favoritesButton.setTitleColor(.black, for: .normal)
+            favoritesButton.titleLabel?.font = UIFont(name: "calibri_bold", size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
+        } else {
+            stocksButton.setTitleColor(.black, for: .normal)
+            stocksButton.titleLabel?.font = UIFont(name: "calibri_bold", size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
+            favoritesButton.setTitleColor(.lightGray, for: .normal)
+            favoritesButton.titleLabel?.font = UIFont(name: "calibri_bold", size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+        }
+        // Принудительно обновить layout
+         stocksButton.layoutIfNeeded()
+         favoritesButton.layoutIfNeeded()
     }
     
     func toggleFavorite(_ stock: Stock) {
@@ -191,6 +238,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                             self?.toggleFavorite(stock)
                         }
         )
+        cell.backgroundColor = indexPath.row % 2 == 0 ? #colorLiteral(red: 0.9425268769, green: 0.9571763873, blue: 0.9700122476, alpha: 1) : .systemBackground
         return cell
     }
     
