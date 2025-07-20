@@ -19,12 +19,12 @@ class StockCell: UITableViewCell {
     }()
     private lazy var symbolLabel: UILabel = {
         let element = UILabel()
-        element.font = UIFont.boldSystemFont(ofSize: 16)
+        element.font = UIFont(name: "calibri_bold", size: 16)
         return element
     }()
     private lazy var nameLabel: UILabel = {
         let element = UILabel()
-        element.font = UIFont.systemFont(ofSize: 14)
+        element.font = UIFont(name: "calibri_bold", size: 14)
         element.textColor = .gray
         return element
     }()
