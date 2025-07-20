@@ -4,8 +4,13 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>calibri.ttf</string>
-		<string>calibri_bold.ttf</string>
+		<string>&lt;key&gt;UIAppFonts&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;Montserrat-Regular.ttf&lt;/string&gt;
+    &lt;string&gt;Montserrat-Bold.ttf&lt;/string&gt;
+    &lt;string&gt;Montserrat-Medium.ttf&lt;/string&gt;
+    &lt;string&gt;Montserrat-SemiBold.ttf&lt;/string&gt;
+&lt;/array&gt;</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
