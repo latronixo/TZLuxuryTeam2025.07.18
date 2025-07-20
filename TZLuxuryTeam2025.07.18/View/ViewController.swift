@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         tableView.snp.makeConstraints { 
             $0.top.equalTo(segmentControl.snp.bottom).offset(8)
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.greaterThanOrEqualTo(400)
+            $0.height.greaterThanOrEqualTo(800)
         }
     }
     
@@ -192,6 +192,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                         }
         )
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 

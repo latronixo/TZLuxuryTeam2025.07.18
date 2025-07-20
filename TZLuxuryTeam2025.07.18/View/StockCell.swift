@@ -20,17 +20,18 @@ class StockCell: UITableViewCell {
     private lazy var symbolLabel: UILabel = {
         let element = UILabel()
         element.font = UIFont(name: "calibri_bold", size: 16)
+        element.textColor = .black
         return element
     }()
     private lazy var nameLabel: UILabel = {
         let element = UILabel()
-        element.font = UIFont(name: "calibri_bold", size: 14)
-        element.textColor = .gray
+        element.font = UIFont(name: "calibri_bold", size: 10)
+        element.textColor = .black
         return element
     }()
     private lazy var favoriteButton: UIButton = {
         let element = UIButton()
-        element.setImage(UIImage(systemName: "star"), for: .normal)
+        element.setImage(UIImage(systemName: "star.fill"), for: .normal)
         element.setImage(UIImage(systemName: "star.fill"), for: .selected)
         element.tintColor = .lightGray
         element.addTarget(self, action: #selector(favTapped), for: .touchUpInside)
@@ -70,10 +71,10 @@ class StockCell: UITableViewCell {
         logoImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(8)
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(40)
+            $0.width.height.equalTo(50)
         }
         symbolLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImageView)
+            $0.top.equalTo(logoImageView).offset(5)
             $0.leading.equalTo(logoImageView.snp.trailing).offset(8)
         }
         nameLabel.snp.makeConstraints {
